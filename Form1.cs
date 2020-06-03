@@ -10,11 +10,42 @@ using System.Windows.Forms;
 
 namespace TrafficLights
 {
-    public partial class Form1 : Form
+    public partial class TrafficLights : Form
     {
-        public Form1()
+        private Timer timerSwitch;
+
+        public TrafficLights()
         {
             InitializeComponent();
+            InitializeTrafficLights();
+            InitializeTimerSwitch();
+        }
+
+        private void InitializeTimerSwitch()
+        {
+            timerSwitch = new Timer();
+            timerSwitch.Interval = 1000;
+            timerSwitch.Tick += new EventHandler(timerSwitch_Tick);
+            timerSwitch.Start();
+        }
+
+        private void timerSwitch_Tick(object sender, EventArgs e)
+        {
+            if(Red.BackColor == Color.DarkRed)
+            {
+                Red.BackColor = Color.Red;
+            }
+            else
+            {
+                Red.BackColor = Color.DarkRed;
+            }
+        }
+
+        private void InitializeTrafficLights()
+        {
+            Red.BackColor = Color.DarkRed;
+            Yellow.BackColor = Color.DarkGoldenrod;
+            Green.BackColor = Color.DarkGreen;
         }
     }
 }
