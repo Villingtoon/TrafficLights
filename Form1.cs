@@ -16,11 +16,13 @@ namespace TrafficLights
         private Timer timerSwitch = null;
         private Timer timerBlink = null;
         private int timeCounter = 0;
+        private Label labelTime = null;
 
         public TrafficLights()
         {
             InitializeComponent();
             InitializeTrafficLights();
+            InitializeLabelTime();
             InitializeTimerSwitch();
             InitializeTimerBlink();
         }
@@ -40,6 +42,18 @@ namespace TrafficLights
             timerBlink.Tick += new EventHandler(timerBlink_Tick);
         }
 
+        private void InitializeLabelTime()
+        {
+            labelTime = new Label();
+            labelTime.Font = new Font("Tahoma", 18, FontStyle.Bold);
+            labelTime.Width = 150;
+            labelTime.Height = 50;
+            labelTime.Top = 20;
+            labelTime.Left = 50;
+            labelTime.Text = "00:00:00";
+            this.Controls.Add(labelTime);
+        }
+
         private void SwitchLights()
         {
             switch (timeCounter)
@@ -49,13 +63,18 @@ namespace TrafficLights
                     break;
                 case 3:
                     Yellow.BackColor = Color.Yellow;
-                    Red.BackColor = Color.Gray;
+                    //RedLight.BackColor = Color.Gray;
                     break;
                 case 5:
+                    Red.BackColor = Color.Gray;
                     Yellow.BackColor = Color.Gray;
                     Green.BackColor = Color.Green;
                     break;
+                case 6:
+                    timerBlink.Start();
+                    break;
                 case 8:
+                    timerBlink.Stop();
                     Yellow.BackColor = Color.Yellow;
                     Green.BackColor = Color.Gray;
                     break;

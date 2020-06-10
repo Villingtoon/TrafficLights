@@ -38,7 +38,7 @@
             // 
             // Red
             // 
-            this.Red.Location = new System.Drawing.Point(13, 13);
+            this.Red.Location = new System.Drawing.Point(10, 128);
             this.Red.Name = "Red";
             this.Red.Size = new System.Drawing.Size(139, 136);
             this.Red.TabIndex = 0;
@@ -46,7 +46,7 @@
             // 
             // Yellow
             // 
-            this.Yellow.Location = new System.Drawing.Point(15, 155);
+            this.Yellow.Location = new System.Drawing.Point(12, 270);
             this.Yellow.Name = "Yellow";
             this.Yellow.Size = new System.Drawing.Size(139, 136);
             this.Yellow.TabIndex = 1;
@@ -54,7 +54,7 @@
             // 
             // Green
             // 
-            this.Green.Location = new System.Drawing.Point(15, 299);
+            this.Green.Location = new System.Drawing.Point(12, 414);
             this.Green.Name = "Green";
             this.Green.Size = new System.Drawing.Size(139, 136);
             this.Green.TabIndex = 2;
@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(166, 450);
+            this.ClientSize = new System.Drawing.Size(325, 560);
             this.Controls.Add(this.Green);
             this.Controls.Add(this.Yellow);
             this.Controls.Add(this.Red);
