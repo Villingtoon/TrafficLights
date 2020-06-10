@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,7 +13,8 @@ namespace TrafficLights
 {
     public partial class TrafficLights : Form
     {
-        private Timer timerSwitch;
+        private Timer timerSwitch = null;
+        private Timer timerBlink = null;
         private int timeCounter = 0;
 
         public TrafficLights()
@@ -20,6 +22,7 @@ namespace TrafficLights
             InitializeComponent();
             InitializeTrafficLights();
             InitializeTimerSwitch();
+            InitializeTimerBlink();
         }
 
         private void InitializeTimerSwitch()
@@ -30,33 +33,56 @@ namespace TrafficLights
             timerSwitch.Start();
         }
 
-        private void timerSwitch_Tick(object sender, EventArgs e)
+        private void InitializeTimerBlink()
         {
-            if(timeCounter == 0)
+            timerBlink = new Timer();
+            timerBlink.Interval = 200;
+            timerBlink.Tick += new EventHandler(timerBlink_Tick);
+        }
+
+        private void SwitchLights()
+        {
+            switch (timeCounter)
             {
-                Red.BackColor = Color.Red;
-                Yellow.BackColor = Color.DarkGoldenrod;
-            }
-            else if(timeCounter == 5)
-            {
-                Yellow.BackColor = Color.Yellow;
-                Red.BackColor = Color.DarkRed;
-            }
-            else if (timeCounter == 6)
-            {
-                Green.BackColor = Color.Lime;
-                Yellow.BackColor = Color.DarkGoldenrod;
-            }
-            else if (timeCounter == 11)
-            {
-                Yellow.BackColor = Color.Yellow;
-                Green.BackColor = Color.DarkGreen;
-            }
-            else if (timeCounter == 12)
-            {
-                timeCounter = -1;
+                case 0:
+                    Red.BackColor = Color.Red;
+                    break;
+                case 3:
+                    Yellow.BackColor = Color.Yellow;
+                    Red.BackColor = Color.Gray;
+                    break;
+                case 5:
+                    Yellow.BackColor = Color.Gray;
+                    Green.BackColor = Color.Green;
+                    break;
+                case 8:
+                    Yellow.BackColor = Color.Yellow;
+                    Green.BackColor = Color.Gray;
+                    break;
+                case 10:
+                    Yellow.BackColor = Color.Gray;
+                    Red.BackColor = Color.Red;
+                    timeCounter = -1;
+                    break;
             }
             timeCounter++;
+        }
+
+        private void timerSwitch_Tick(object sender, EventArgs e)
+        {
+            SwitchLights();
+        }
+
+        private void timerBlink_Tick(object sender, EventArgs e)
+        {
+            if(Green.BackColor == Color.DarkGreen)
+            {
+                Green.BackColor = Color.Green;
+            }
+            else
+            {
+                Green.BackColor = Color.DarkGreen;
+            }
         }
 
         private void InitializeTrafficLights()
